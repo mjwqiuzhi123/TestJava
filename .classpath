@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="path"/>
+	<classpathentry kind="src" path="path1"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/jetty-server-8.1.9.v20130131.jar" sourcepath="D:/workspace/jetty.project-jetty-9.3.x.zip"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/jetty-util-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/servlet-api-3.0.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/jetty-http-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/jetty-io-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/jetty-continuation-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/jetty-servlet-8.1.9.v20130131.jar" sourcepath="E:/workspace/TestJetty/jetty-util-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/jetty-security-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/jetty-webapp-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/jetty-xml-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/json_org.jar" sourcepath="E:/workspace/TestJetty/json_org.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/json-lib.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/quartz-2.2.3.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/quartz-jobs-2.2.3.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/slf4j-api-1.7.7.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/slf4j-log4j12-1.7.7.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="zookeeper-3.4.8.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/commons-codec-1.4.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/commons-httpclient-3.1.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/commons-logging-1.1.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/jcommon-1.0.16.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/jfreechart-1.0.14.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/jackson-all-1.9.11.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/jedis-2.9.0.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

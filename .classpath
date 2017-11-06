@@ -31,5 +31,6 @@
 	<classpathentry kind="lib" path="E:/workspace/TestJetty/jackson-all-1.9.11.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="E:/workspace/TestJetty/jedis-2.9.0.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/PushJavaSDK.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

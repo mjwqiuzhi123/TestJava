@@ -12,7 +12,6 @@ public class TestZK {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		// 创建一个与服务器的连接
 		ZooKeeper zk = null;
 		try{
@@ -21,7 +20,14 @@ public class TestZK {
 		            public void process(WatchedEvent event) { 
 		                System.out.println("已经触发了" + event.getType() + "事件！"); 
 		            } 
-		        }); 
+		        });
+		 if(zk.exists("/testRootPath/testChildPathTwo", null) != null)
+			 zk.delete("/testRootPath/testChildPathTwo",-1);
+		 if(zk.exists("/testRootPath/testChildPathOne", null) != null)
+			 zk.delete("/testRootPath/testChildPathOne",-1); 
+		 // 删除父目录节点
+		 if(zk.exists("/testRootPath", null) != null)
+			 zk.delete("/testRootPath",-1);
 		 // 创建一个目录节点
 		 zk.create("/testRootPath", "testRootData".getBytes(), Ids.OPEN_ACL_UNSAFE,
 		   CreateMode.PERSISTENT); 

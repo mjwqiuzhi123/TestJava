@@ -17,6 +17,17 @@ import com.tencent.xinge.XingeApp;
 import com.tencent.xinge.TagTokenPair;
 
 public class Demo {
+	
+	private XingeApp xinge;
+    private Message message1;
+    private Message message2;
+    private MessageIOS messageIOS;
+    
+    public Demo() {
+        xinge = new XingeApp(2200265349L, "4cae515bf24eb0cb9cda798e22615207");// long accessId, String secretKey
+        buildMesssges();
+    }
+	
     public static void main(String[] args) {
         demoXingeSimple();
 
@@ -28,9 +39,9 @@ public class Demo {
 //        System.out.println(t.demoPushSingleAccount());
 //
 //        //iOS推送
-//        System.out.println(t.demoPushSingleDeviceMessageIOS());
-//        System.out.println(t.demoPushSingleDeviceNotificationIOS());
-//        System.out.println(t.demoPushSingleAccountIOS());
+          //System.out.println(t.demoPushSingleDeviceMessageIOS());
+         // System.out.println(t.demoPushSingleDeviceNotificationIOS());
+          //System.out.println(t.demoPushSingleAccountIOS());
 //        System.out.println(t.demoPushAccountListIOS());
 //
 //        //Android批量推送
@@ -42,19 +53,19 @@ public class Demo {
 //
 //        //查询接口
 //        System.out.println(t.demoQueryPushStatus());
-//        System.out.println(t.demoQueryDeviceCount());
-//        System.out.println(t.demoQueryTags());
-//        System.out.println(t.demoQueryTagTokenNum());
-//        System.out.println(t.demoQueryTokenTags());
-//        System.out.println(t.demoQueryInfoOfToken());
-//        System.out.println(t.demoQueryTokensOfAccount());
+        System.out.println(t.demoQueryDeviceCount());// 查询APP数量
+        System.out.println(t.demoQueryTags());// 查询APP标签
+        System.out.println("tag(男士)对应的设备数量：" + t.demoQueryTagTokenNum());
+        System.out.println("某个token对应的标签：" + t.demoQueryTokenTags());
+        System.out.println("某个token的信息：" + t.demoQueryInfoOfToken());
+        System.out.println("某个用户对应的token:" + t.demoQueryTokensOfAccount());
 //
 //        //变更接口
-//        System.out.println(t.demoCancelTimingPush());
-//        System.out.println(t.demoBatchSetTag());
-//        System.out.println(t.demoBatchDelTag());
-//        System.out.println(t.demoDeleteTokenOfAccount());
-//        System.out.println(t.demoDeleteAllTokensOfAccount());
+//        System.out.println(t.demoCancelTimingPush());// 取消定时任务
+//        System.out.println(t.demoBatchSetTag());// 设置标签
+//        System.out.println(t.demoBatchDelTag());// 删除标签
+//        System.out.println(t.demoDeleteTokenOfAccount());// 删除某个account绑定的token
+//        System.out.println(t.demoDeleteAllTokensOfAccount());// 删除某个account绑定的所有token
     }
 
     /**
@@ -67,10 +78,10 @@ public class Demo {
 //        System.out.println(XingeApp.pushAllAndroid(000, "secretKey", "test", "测试"));
 //        System.out.println(XingeApp.pushTagAndroid(000, "secretKey", "test", "测试", "tag"));
 
-        System.out.println(XingeApp.pushTokenIos(2200265349L, "4cae515bf24eb0cb9cda798e22615207", "测试", "bf05c92db134537972b07486e62de282ce36c265f51fdabeb7e0a8c85fd43a33", XingeApp.IOSENV_PROD));
-        System.out.println(XingeApp.pushAccountIos(2200265349L, "4cae515bf24eb0cb9cda798e22615207", "测试", "905396838", XingeApp.IOSENV_DEV));
-        System.out.println(XingeApp.pushAllIos(2200265349L, "4cae515bf24eb0cb9cda798e22615207", "测试", XingeApp.IOSENV_DEV));
-        System.out.println(XingeApp.pushTagIos(2200265349L, "4cae515bf24eb0cb9cda798e22615207", "测试", "tag", XingeApp.IOSENV_DEV));
+        //System.out.println(XingeApp.pushTokenIos(2200265349L, "4cae515bf24eb0cb9cda798e22615207", "测试-token", "4bebe62b6ff56e4e0f6f1030690a9697903fb8a7693031ff8661b5114efa7d1c", XingeApp.IOSENV_DEV));
+        //System.out.println(XingeApp.pushAccountIos(2200265349L, "4cae515bf24eb0cb9cda798e22615207", "测试-account", "905396838", XingeApp.IOSENV_DEV));
+        //System.out.println(XingeApp.pushAllIos(2200265349L, "4cae515bf24eb0cb9cda798e22615207", "全部发送_20171107", XingeApp.IOSENV_DEV));
+        //System.out.println(XingeApp.pushTagIos(2200265349L, "4cae515bf24eb0cb9cda798e22615207", "测试-tag", "hello", XingeApp.IOSENV_PROD));
     }
 
     //单个设备下发透传消息
@@ -103,7 +114,7 @@ public class Demo {
     protected JSONObject demoPushSingleDeviceMessageIOS() {
         MessageIOS remoteMessageIOS = new MessageIOS();
         remoteMessageIOS.setType(MessageIOS.TYPE_REMOTE_NOTIFICATION);
-        return xinge.pushSingleDevice("token", messageIOS, XingeApp.IOSENV_DEV);
+        return xinge.pushSingleDevice("4bebe62b6ff56e4e0f6f1030690a9697903fb8a7693031ff8661b5114efa7d1c", messageIOS, XingeApp.IOSENV_DEV);// XingeApp.IOSENV_PROD
     }
 
     //单个设备下发通知消息iOS
@@ -111,11 +122,13 @@ public class Demo {
         TimeInterval acceptTime1 = new TimeInterval(0, 0, 23, 59);
         messageIOS.addAcceptTime(acceptTime1);
         Map<String, Object> custom = new HashMap<String, Object>();
-        custom.put("key1", "value1");
-        custom.put("key2", 2);
-        messageIOS.setCustom(custom);
-
-        JSONObject ret = xinge.pushSingleDevice("token", messageIOS, XingeApp.IOSENV_DEV);
+        custom.put("title", "采贝代超上线了");
+        custom.put("body", "小伙伴注册有好礼哦！");
+        //custom.put("url", "www.baidu.com");
+        JSONObject jo = new JSONObject(custom);
+        messageIOS.setAlert(jo);
+        //messageIOS.setCustom(custom);
+        JSONObject ret = xinge.pushSingleDevice("4bebe62b6ff56e4e0f6f1030690a9697903fb8a7693031ff8661b5114efa7d1c", messageIOS, XingeApp.IOSENV_DEV);
         return ret;
     }
 
@@ -153,11 +166,11 @@ public class Demo {
         TimeInterval acceptTime1 = new TimeInterval(0, 0, 23, 59);
         message.addAcceptTime(acceptTime1);
         Map<String, Object> custom = new HashMap<String, Object>();
-        custom.put("key1", "value1");
-        custom.put("key2", 2);
+        custom.put("title", "this is a title");
+        custom.put("body", "Bob wants to play poker");
         message.setCustom(custom);
 
-        JSONObject ret = xinge.pushSingleAccount(0, "joelliu", messageIOS, XingeApp.IOSENV_DEV);
+        JSONObject ret = xinge.pushSingleAccount(0, "13663859150", messageIOS, XingeApp.IOSENV_DEV);
         return ret;
     }
 
@@ -277,13 +290,13 @@ public class Demo {
 
     //查询某个tag下token的数量
     protected JSONObject demoQueryTagTokenNum() {
-        JSONObject ret = xinge.queryTagTokenNum("tag");
+        JSONObject ret = xinge.queryTagTokenNum("男士");
         return ret;
     }
 
     //查询某个token的标签
     protected JSONObject demoQueryTokenTags() {
-        JSONObject ret = xinge.queryTokenTags("token");
+        JSONObject ret = xinge.queryTokenTags("4bebe62b6ff56e4e0f6f1030690a9697903fb8a7693031ff8661b5114efa7d1c");
         return ret;
     }
 
@@ -298,8 +311,8 @@ public class Demo {
         List<TagTokenPair> pairs = new ArrayList<TagTokenPair>();
 
         // 切记把这里的示例tag和示例token修改为你的真实tag和真实token
-        pairs.add(new TagTokenPair("tag1", "token00000000000000000000000000000000001"));
-        pairs.add(new TagTokenPair("tag2", "token00000000000000000000000000000000001"));
+        pairs.add(new TagTokenPair("金融", "4bebe62b6ff56e4e0f6f1030690a9697903fb8a7693031ff8661b5114efa7d1c"));
+        pairs.add(new TagTokenPair("男士", "4bebe62b6ff56e4e0f6f1030690a9697903fb8a7693031ff8661b5114efa7d1c"));
 
         JSONObject ret = xinge.BatchSetTag(pairs);
         return ret;
@@ -320,13 +333,13 @@ public class Demo {
 
     //查询某个token的信息
     protected JSONObject demoQueryInfoOfToken() {
-        JSONObject ret = xinge.queryInfoOfToken("token");
+        JSONObject ret = xinge.queryInfoOfToken("4bebe62b6ff56e4e0f6f1030690a9697903fb8a7693031ff8661b5114efa7d1c");
         return ret;
     }
 
     //查询某个account绑定的token
     protected JSONObject demoQueryTokensOfAccount() {
-        JSONObject ret = xinge.queryTokensOfAccount("nickName");
+        JSONObject ret = xinge.queryTokensOfAccount("13663859150");
         return ret;
     }
 
@@ -375,19 +388,10 @@ public class Demo {
         messageIOS = new MessageIOS();
         messageIOS.setType(MessageIOS.TYPE_APNS_NOTIFICATION);
         messageIOS.setExpireTime(86400);
-        messageIOS.setAlert("ios test");
+        messageIOS.setAlert("腾讯信鸽");
         messageIOS.setBadge(1);
         messageIOS.setCategory("INVITE_CATEGORY");
         messageIOS.setSound("beep.wav");
     }
 
-    public Demo() {
-        XingeApp xinge = new XingeApp(000, "secret_key");
-        buildMesssges();
-    }
-
-    private XingeApp xinge;
-    private Message message1;
-    private Message message2;
-    private MessageIOS messageIOS;
 }

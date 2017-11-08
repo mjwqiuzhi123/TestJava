@@ -1,3 +1,6 @@
+/**
+ * zookeeper实现分布式锁
+ */
 package com.mjw.zookeeper.test;
 
 import org.slf4j.Logger;  
@@ -40,7 +43,8 @@ public class DistributedLock implements Watcher{
                         DistributedLock dc = new DistributedLock(threadId);  
                         dc.createConnection(CONNECTION_STRING, SESSION_TIMEOUT);  
                         //GROUP_PATH不存在的话，由一个线程创建即可；  
-                        synchronized (threadSemaphore){  
+                        synchronized (threadSemaphore){
+                        	LOG.info("【第"+threadId+"个线程】创建根节点：");
                             dc.createPath(GROUP_PATH, "该节点由线程" + threadId + "创建", true);  
                         }  
                         dc.getLock();  
@@ -104,7 +108,7 @@ public class DistributedLock implements Watcher{
             return;  
         }  
         LOG.info(LOG_PREFIX_OF_THREAD + "获取锁成功，赶紧干活！");  
-        Thread.sleep(2000);  
+        Thread.sleep(200);  
         LOG.info(LOG_PREFIX_OF_THREAD + "删除本节点："+selfPath);  
         zk.delete(this.selfPath, -1);  
         releaseConnection();  
@@ -132,7 +136,7 @@ public class DistributedLock implements Watcher{
          switch (index){  
              case -1:{  
                  LOG.error(LOG_PREFIX_OF_THREAD+"本节点已不在了..."+selfPath);  
-                 return false;  
+                 return false;   
              }  
              case 0:{  
                  LOG.info(LOG_PREFIX_OF_THREAD+"子节点中，我果然是老大"+selfPath);  

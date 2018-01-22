@@ -32,5 +32,13 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="E:/workspace/TestJetty/jedis-2.9.0.jar"/>
 	<classpathentry kind="lib" path="E:/workspace/TestJetty/PushJavaSDK.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/commons-net-3.6.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/mysql-connector-java-5.1.7-bin.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/commons-beanutils-1.9.3.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/commons-collections-3.2.2.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/ezmorph-1.0.4.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/morph-1.1.1.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/jsoup-1.10.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

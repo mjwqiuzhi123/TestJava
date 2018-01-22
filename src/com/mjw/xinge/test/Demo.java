@@ -39,10 +39,10 @@ public class Demo {
 //        System.out.println(t.demoPushSingleAccount());
 //
 //        //iOS推送
-          //System.out.println(t.demoPushSingleDeviceMessageIOS());
-         // System.out.println(t.demoPushSingleDeviceNotificationIOS());
-          //System.out.println(t.demoPushSingleAccountIOS());
-//        System.out.println(t.demoPushAccountListIOS());
+//		System.out.println(t.demoPushSingleDeviceMessageIOS());
+//		System.out.println(t.demoPushSingleDeviceNotificationIOS());
+//		System.out.println(t.demoPushSingleAccountIOS());
+//		System.out.println(t.demoPushAccountListIOS());
 //
 //        //Android批量推送
 //        System.out.println(t.demoPushAccountList());
@@ -52,13 +52,13 @@ public class Demo {
 //        System.out.println(t.demoPushDeviceListMultiple());
 //
 //        //查询接口
-//        System.out.println(t.demoQueryPushStatus());
-        System.out.println(t.demoQueryDeviceCount());// 查询APP数量
-        System.out.println(t.demoQueryTags());// 查询APP标签
-        System.out.println("tag(男士)对应的设备数量：" + t.demoQueryTagTokenNum());
-        System.out.println("某个token对应的标签：" + t.demoQueryTokenTags());
-        System.out.println("某个token的信息：" + t.demoQueryInfoOfToken());
-        System.out.println("某个用户对应的token:" + t.demoQueryTokensOfAccount());
+        System.out.println(t.demoQueryPushStatus());
+//        System.out.println(t.demoQueryDeviceCount());// 查询APP数量
+//        System.out.println(t.demoQueryTags());// 查询APP标签
+//        System.out.println("tag(男士)对应的设备数量：" + t.demoQueryTagTokenNum());
+//        System.out.println("某个token对应的标签：" + t.demoQueryTokenTags());
+//        System.out.println("某个token的信息：" + t.demoQueryInfoOfToken());
+//        System.out.println("某个用户对应的token:" + t.demoQueryTokensOfAccount());
 //
 //        //变更接口
 //        System.out.println(t.demoCancelTimingPush());// 取消定时任务
@@ -78,10 +78,10 @@ public class Demo {
 //        System.out.println(XingeApp.pushAllAndroid(000, "secretKey", "test", "测试"));
 //        System.out.println(XingeApp.pushTagAndroid(000, "secretKey", "test", "测试", "tag"));
 
-        //System.out.println(XingeApp.pushTokenIos(2200265349L, "4cae515bf24eb0cb9cda798e22615207", "测试-token", "4bebe62b6ff56e4e0f6f1030690a9697903fb8a7693031ff8661b5114efa7d1c", XingeApp.IOSENV_DEV));
+        //System.out.println(XingeApp.pushTokenIos(2200265349L, "4cae515bf24eb0cb9cda798e22615207", "通用测试-token", "4bebe62b6ff56e4e0f6f1030690a9697903fb8a7693031ff8661b5114efa7d1c", XingeApp.IOSENV_DEV));
         //System.out.println(XingeApp.pushAccountIos(2200265349L, "4cae515bf24eb0cb9cda798e22615207", "测试-account", "905396838", XingeApp.IOSENV_DEV));
-        //System.out.println(XingeApp.pushAllIos(2200265349L, "4cae515bf24eb0cb9cda798e22615207", "全部发送_20171107", XingeApp.IOSENV_DEV));
-        //System.out.println(XingeApp.pushTagIos(2200265349L, "4cae515bf24eb0cb9cda798e22615207", "测试-tag", "hello", XingeApp.IOSENV_PROD));
+        System.out.println(XingeApp.pushAllIos(2200265349L, "4cae515bf24eb0cb9cda798e22615207", "全部发送_20171107", XingeApp.IOSENV_DEV));
+        //System.out.println(XingeApp.pushTagIos(2200265349L, "4cae515bf24eb0cb9cda798e22615207", "测试-tag", "hello", XingeApp.IOSENV_DEV));
     }
 
     //单个设备下发透传消息
@@ -170,17 +170,17 @@ public class Demo {
         custom.put("body", "Bob wants to play poker");
         message.setCustom(custom);
 
-        JSONObject ret = xinge.pushSingleAccount(0, "13663859150", messageIOS, XingeApp.IOSENV_DEV);
+        JSONObject ret = xinge.pushSingleAccount(0, "", messageIOS, XingeApp.IOSENV_DEV);
         return ret;
     }
 
-    //下发IOS多个账号
-    protected JSONObject demoPushAccountListIOS() {
-        List<String> accountList = new ArrayList<String>();
-        accountList.add("joelliu");
-        JSONObject ret = xinge.pushAccountList(0, accountList, messageIOS, XingeApp.IOSENV_DEV);
-        return ret;
-    }
+	// 下发IOS多个账号
+	protected JSONObject demoPushAccountListIOS() {
+		List<String> accountList = new ArrayList<String>();
+		accountList.add("");
+		JSONObject ret = xinge.pushAccountList(0, accountList, messageIOS, XingeApp.IOSENV_DEV);
+		return ret;
+	}
 
     //下发所有设备
     protected JSONObject demoPushAllDevice() {
@@ -270,8 +270,7 @@ public class Demo {
     //查询消息推送状态
     protected JSONObject demoQueryPushStatus() {
         List<String> pushIdList = new ArrayList<String>();
-        pushIdList.add("390");
-        pushIdList.add("389");
+        pushIdList.add("3237813940");
         JSONObject ret = xinge.queryPushStatus(pushIdList);
         return ret;
     }

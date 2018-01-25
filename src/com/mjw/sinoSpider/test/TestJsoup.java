@@ -11,10 +11,11 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class TestJsoup {
-
+	
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		List<News> l = test();
+		BloomFilterTest bf = new BloomFilterTest();
+		List<News> l = test(bf);
 		for (News n : l) {
 			System.out.println(n.getUrl());
 			System.out.println(n.getTitle());
@@ -22,7 +23,7 @@ public class TestJsoup {
 		}
 	}
 
-	public static List<News> test() throws IOException {
+	public static List<News> test(BloomFilterTest bf) throws IOException {
 		List<News> l = new ArrayList<News>();
 		Connection connection = Jsoup
 				.connect("http://roll.mil.news.sina.com.cn/photo_hz/photo_hdphoto/index.shtml");
@@ -37,6 +38,8 @@ public class TestJsoup {
 					Element a = as.get(0);
 					String url = a.attr("href");
 					String title = a.attr("title");
+					System.out.println("第一次:" + dealByBloomFilter(bf,url));
+					System.out.println("第二次:" + dealByBloomFilter(bf,url));
 					News news1 = new News();
 					news1.setUrl(url);
 					news1.setTitle(title);
@@ -46,5 +49,13 @@ public class TestJsoup {
 		}
 		return l;
 	}
-
+	
+	public static boolean dealByBloomFilter(BloomFilterTest bf,String url){
+		boolean flag = false;
+		BloomFilter bF = bf.getBf();
+		flag = bF.contains(url);
+		if(url != null && !url.equals("") && !bF.contains(url))
+			bF.addValue(url);
+		return flag;
+	}
 }

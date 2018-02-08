@@ -4,17 +4,14 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.net.ssl.HttpsURLConnection;
   
   
 /*** 
@@ -25,11 +22,18 @@ import javax.net.ssl.HttpsURLConnection;
 public class JavaReptileUtil {  
       
     // 地址  
-    private static final String WEB_SITE = "http://image.baidu.com/";  
+    private static final String WEB_SITE = "https://www.4493.com/";  
     // 获取img标签正则  
     private static final String IMAGE_TAG_REG = "<img.*src=(.*?)[^>]*?>";  
+    //private static final String IMAGE_TAG_REG = "<img.*src=.+\\.jpg.+>";
+    //private static final String IMAGE_TAG_REG = "<img\\s+[^>]*\\s*src\\s*=\\s*([']?)(?<url>\\S+)'?[^>]*>";// 匹配img标签的正则表达式
+    
+
+
     // 获取src路径的正则  
-    private static final String IMAGE_SRC_REG = "http:\"?(.*?)(\"|>|\\s+)";  
+    private static final String IMAGE_SRC_REG = "http:\"?(.*?)(\"|>|\\s+)"; 
+    //private static final String IMAGE_SRC_REG = "(?<=src/s*=/s*[/'/""]?)(?<url>[http/:////]?[^'""]+)";// 匹配img 的src的正则表达式
+    //private static final String IMAGE_SRC_REG = "(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]"; 
     /** 
      * 测试小爬虫 
      * @param args 
@@ -111,6 +115,8 @@ public class JavaReptileUtil {
         for (String src : imageSrc) {
         	if(!src.contains(".jpg"))
         		continue;
+        	if(!src.contains(".gif"))
+        		continue;
             URL url =null;  
             try {
             	//src = src.replaceAll("\\","");
@@ -121,6 +127,12 @@ public class JavaReptileUtil {
             }  
             // 下在资源  
             System.out.println(src);
+            try{
+            	url.openStream();
+            } catch (Exception e)
+            {
+            	continue;
+            }
             DataInputStream dataInputStream = new DataInputStream(url.openStream());  
             FileOutputStream fileOutputStream = new FileOutputStream(new File("F:\\PIC\\" + src.substring(src.lastIndexOf("/") + 1)/*NetUtil.getStrName(src)*/));  
             byte[] bytes = new byte[1024];  

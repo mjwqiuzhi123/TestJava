@@ -6,7 +6,7 @@ import java.util.concurrent.Executors;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.PostMethod;
 
-class Test1 {
+class Test2 {
 	// 第一种方法
 	// 这种方法是用apache提供的包,简单方便
 	// 但是要用到以下包:commons‐codec‐1.4.jar
@@ -58,7 +58,7 @@ class Attack implements Runnable {
 	public void run() {
 		// TODO Auto-generated method stub
 		for (int i = 0; i < 10; i++) {
-			Test1.createhttpClient(url, null);
+			Test2.createhttpClient(url, null);
 			System.err.println(Thread.currentThread().getName() + ": 第" + sum
 					+ "线程调用， 第" + i + "次县城内循环。");
 		}

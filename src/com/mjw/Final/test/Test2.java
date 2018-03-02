@@ -1,6 +1,6 @@
 package com.mjw.Final.test;
 
-public class Test1 extends Test{//Test类被final修饰，是不能被继承的
+public abstract class Test2 {//抽象类不能被final修饰
 
 	/**
 	 * @param args
@@ -10,4 +10,5 @@ public class Test1 extends Test{//Test类被final修饰，是不能被继承的
 
 	}
 
+	public abstract void test();//抽象方法没有方法体
 }

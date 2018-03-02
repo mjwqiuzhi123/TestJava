@@ -3,6 +3,7 @@
  */
 package com.mjw.reflect.test;
 
+import java.io.File;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -16,6 +17,8 @@ public class DynamicProxy {
 		MyInvocationHandler demo = new MyInvocationHandler();
 		Subject sub = (Subject) demo.bind(new RealSubject());
 		String info = sub.say("Rollen", 20);
+		//File f = new File("d:proxy");
+		
 		System.out.println(info);
 	}
 
@@ -51,6 +54,8 @@ class MyInvocationHandler implements InvocationHandler {
 //		for(Class<?> c : clazz){
 //			System.out.println(c.getName());
 //		}
+		System.out.println(obj.getClass().getClassLoader());
+		System.out.println(obj.getClass().getInterfaces()[0].getClass().getName());
 		return Proxy.newProxyInstance(obj.getClass().getClassLoader(), obj
 				.getClass().getInterfaces(), this);
 	}

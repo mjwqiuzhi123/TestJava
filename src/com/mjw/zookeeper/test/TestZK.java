@@ -1,26 +1,35 @@
 package com.mjw.zookeeper.test;
 
+import java.util.concurrent.CountDownLatch;
+
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
+import org.apache.zookeeper.Watcher.Event.KeeperState;
 import org.apache.zookeeper.ZooDefs.Ids;
 import org.apache.zookeeper.ZooKeeper;
 
 public class TestZK {
+	//private static TestZK tz;
+	private static CountDownLatch connectedSignal = new CountDownLatch(1);
 	private final static int SESSION_TIMEOUT = 50000;
+	protected static ZooKeeper zk;
+	private static String hosts = "39.105.8.31:2181,39.105.8.31:2182,39.105.8.31:2183";
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// 创建一个与服务器的连接
-		ZooKeeper zk = null;
+		//ZooKeeper zk = null;
+		
 		try{
-		 zk = new ZooKeeper("47.94.240.80:2180,47.94.240.80:2181,47.94.240.80:2182", SESSION_TIMEOUT, new Watcher() { 
+			doStart();
+/*		 zk = new ZooKeeper("39.105.8.31:2181,39.105.8.31:2182,39.105.8.31:2183", SESSION_TIMEOUT, new Watcher() { 
 		            // 监控所有被触发的事件
 		            public void process(WatchedEvent event) { 
 		                System.out.println("已经触发了" + event.getType() + "事件！"); 
 		            } 
-		        });
+		        });*/
 		 if(zk.exists("/testRootPath/testChildPathTwo", null) != null)
 			 zk.delete("/testRootPath/testChildPathTwo",-1);
 		 if(zk.exists("/testRootPath/testChildPathOne", null) != null)
@@ -64,4 +73,58 @@ public class TestZK {
 		}
 	}
 
+	/**
+	 * 监听连接状态
+	 */
+	private class ConnWatcher implements Watcher {
+		public void process(WatchedEvent event) {
+			// 连接建立, 回调process接口时, 其event.getState()为KeeperState.SyncConnected
+			if (event.getState() == KeeperState.SyncConnected) {
+				// 放开闸门, wait在connect方法上的线程将被唤醒
+				connectedSignal.countDown();
+				// System.out.println("建立Zookeeper连接");
+			} else if (event.getState() == KeeperState.Expired) {
+				System.out.println("Zookeeper连接超时 -- 重连");
+				FileWriterSafe.getInstance().writeTransferLog(
+						"Zookeeper连接超时 -- 重连");
+				FileWriterSafe.getInstance().writeTransferLog(
+						"Zookeeper连接超时,Base 对象:" + this);
+				FileWriterSafe.getInstance().writeTransferLog(
+						"Zookeeper连接超时,ZK对象:" + zk);
+				coopNodeClose();
+				zk = null;
+				doStart();
+			}
+		}
+	}
+	
+	/**
+	 * 关闭连接 暂时没有需要关闭的地方，Zookeeper需要保持长连接
+	 */
+	public static void coopNodeClose() {
+		try {
+			zk.close();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void doStart() {
+		try {
+			connect();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 连接zookeeper server connect
+	 */
+	private static void connect() throws Exception {
+		zk = new ZooKeeper(hosts, SESSION_TIMEOUT, new TestZK().new ConnWatcher());
+		// 等待连接完成
+		// System.out.println("开始建立Zookeeper连接"+hosts);
+		connectedSignal.await();
+	}
 }

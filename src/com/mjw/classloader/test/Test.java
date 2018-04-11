@@ -6,10 +6,14 @@ public class Test {
 
 	/**
 	 * @param args
+	 * @throws InterruptedException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		// TODO Auto-generated method stub
 		test();
+		while(true){
+			Thread.sleep(100);
+		}
 	}
 
 	public static void test(){
@@ -19,4 +23,6 @@ public class Test {
 		} 
 		System.out.println(System.getProperty("sun.boot.class.path"));  
 	}
+	
+	static class test1{}
 }

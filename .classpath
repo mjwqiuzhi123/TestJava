@@ -41,5 +41,6 @@
 	<classpathentry kind="lib" path="E:/workspace/TestJetty/jsoup-1.10.3.jar"/>
 	<classpathentry kind="lib" path="E:/workspace/TestJetty/jedis-2.9.0.jar"/>
 	<classpathentry kind="lib" path="E:/workspace/TestJetty/commons-pool2-2.4.2.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/TestJetty/zkclient-0.8.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -27,15 +27,15 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 public class BTCUtils{
-	//用户名
+	//鐢ㄦ埛鍚�
 	private  String ACCESS_KEY = null;
-	//密码
+	//瀵嗙爜
 	private  String SECRET_KEY = null;
-	//钱包IP地址
+	//閽卞寘IP鍦板潃
 	private  String IP = null;
-	//端口
+	//绔彛
 	private  String PORT = null;
-	//比特币钱包密码
+	//姣旂壒甯侀挶鍖呭瘑鐮�
 	private  String PASSWORD = null;
 	
 	private  String HMAC_SHA1_ALGORITHM = "HmacSHA1";
@@ -79,13 +79,13 @@ public class BTCUtils{
 	}
 	
 	/***
-	 * 取得钱包相关信息
+	 * 鍙栧緱閽卞寘鐩稿叧淇℃伅
 	 * {"result":{"version":80300,"protocolversion":70001,"walletversion":60000,
 	 * "balance":0.00009500,"blocks":284795,"timeoffset":-1,"connections":6,
 	 * "proxy":"","difficulty":2621404453.06461525,"testnet":false,
 	 * "keypoololdest":1388131357,"keypoolsize":102,"paytxfee":0.00000000,
 	 * "errors":""},"error":null,"id":1}
-	 * 若获取失败，result为空，error信息为错误信息的编码
+	 * 鑻ヨ幏鍙栧け璐ワ紝result涓虹┖锛宔rror淇℃伅涓洪敊璇俊鎭殑缂栫爜
 	 * */
 	public JSONObject getInfo() throws Exception {
 		String s = main("getinfo", "[]");
@@ -94,10 +94,10 @@ public class BTCUtils{
 	}
 	
 	/***
-	 * 取得钱包余额
+	 * 鍙栧緱閽卞寘浣欓
 	 * {"result":9.5E-5,"error":null,"id":1}
 	 * {"result":0,"error":null,"id":1}
-	 * 若获取失败，result为空，error信息为错误信息的编码
+	 * 鑻ヨ幏鍙栧け璐ワ紝result涓虹┖锛宔rror淇℃伅涓洪敊璇俊鎭殑缂栫爜
 	 * */
 	public JSONObject getbalance() throws Exception {
 		String s = main("getbalance", "[]");
@@ -120,7 +120,7 @@ public class BTCUtils{
 		return result;
 	}
 	
-	//判断地址是否有效
+	//鍒ゆ柇鍦板潃鏄惁鏈夋晥
 	public boolean validateaddress(String address) throws Exception {
 		boolean result = false;
 		JSONObject s = isValidateaddress(address);
@@ -134,10 +134,10 @@ public class BTCUtils{
 	}
 	
 	/***
-	 * 根据用户ID，生成交易地址
+	 * 鏍规嵁鐢ㄦ埛ID锛岀敓鎴愪氦鏄撳湴鍧�
 	 * @throws Exception 
 	 * {"result":"1MySAsi6bzPLY3HbCcrDd7qgiG7CYnQn3k","error":null,"id":1}
-	 * 若获取失败，result为空，error信息为错误信息的编码
+	 * 鑻ヨ幏鍙栧け璐ワ紝result涓虹┖锛宔rror淇℃伅涓洪敊璇俊鎭殑缂栫爜
 	 * */
 	public JSONObject getNewaddress(int userId) throws Exception {
 		String s = main("getnewaddress", "[\""+userId+"\"]");
@@ -189,14 +189,14 @@ public class BTCUtils{
 	}
 	
 	/**
-	 * 根据用户ID，获取交易记录
+	 * 鏍规嵁鐢ㄦ埛ID锛岃幏鍙栦氦鏄撹褰�
 	 *  {"result":[{"account":"test","address":"i6W5Ng4X49gJDAVnPafFm3rQwEAfU28SUo",
 	 *  "category":"receive","amount":10,"confirmations":166,
 	 *  "blockhash":"9b227a05cce30b33d991199af734cdd72171c6db608ec36aa71f48952ad1a639",
 	 *  "blockindex":1,"txid":"4ed4de64672cb86cc3458a12a8a1d1c4a79478627a536ec62033367ba180ffc9",
 	 *  "time":1391943409,"comment":"","from":"","message":"","to":""}],"error":null,"id":1}
-		没有交易记录的结果：{"result":[],"error":null,"id":1}
-		若获取失败，result为空，error信息为错误信息的编码
+		娌℃湁浜ゆ槗璁板綍鐨勭粨鏋滐細{"result":[],"error":null,"id":1}
+		鑻ヨ幏鍙栧け璐ワ紝result涓虹┖锛宔rror淇℃伅涓洪敊璇俊鎭殑缂栫爜
 	 * */
 	public JSONObject listtransactions(int userId) throws Exception {
 		String s = main("listtransactions", "[\""+userId+"\"]");
@@ -205,7 +205,7 @@ public class BTCUtils{
 	}
 	
 	/**
-	 * 查所有
+	 * 鏌ユ墍鏈�
 	 * **/
 	public JSONObject listtransactions(int count,int from) throws Exception {
 		String s = main("listtransactions", "[\"*\","+count+","+from+"]");
@@ -214,7 +214,7 @@ public class BTCUtils{
 	}
 	
 	/**
-	 * 取得所有的收到的交易记录
+	 * 鍙栧緱鎵�鏈夌殑鏀跺埌鐨勪氦鏄撹褰�
 	 * **/
 	public List<BTCInfo> listtransactionsValue(int count,int from) throws Exception {
 		JSONObject json = listtransactions(count, from);
@@ -243,7 +243,7 @@ public class BTCUtils{
 						long time = Long.parseLong(map.get("time").toString());
 						SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 						java.util.Date dt = new Date(time * 1000); 
-						String sDateTime = sdf.format(dt);  //得到精确到秒的表示：08/31/2006 21:08:00
+						String sDateTime = sdf.format(dt);  //寰楀埌绮剧‘鍒扮鐨勮〃绀猴細08/31/2006 21:08:00
 						info.setTime(Timestamp.valueOf(sDateTime));
 					} catch (Exception e) {
 						info.setTime(Utils.getTimestamp());
@@ -258,8 +258,8 @@ public class BTCUtils{
 	}
 	
 	/***
-	 * 以地址GROUP BY
-	 * 查出所有收到的币以地址
+	 * 浠ュ湴鍧�GROUP BY
+	 * 鏌ュ嚭鎵�鏈夋敹鍒扮殑甯佷互鍦板潃
 	 * [
 		{
 		"address" : "YBjKaMR7XC3yLck2aaNmkJiy2cbr37jezD",
@@ -277,7 +277,7 @@ public class BTCUtils{
 	
 	/***
 	 * 
-	 * 根据交易ID取得交易明细
+	 * 鏍规嵁浜ゆ槗ID鍙栧緱浜ゆ槗鏄庣粏
 	 * */
 	private JSONObject gettransaction(String xid) throws Exception {
 		String s = main("gettransaction", "[\""+xid+"\"]");
@@ -325,7 +325,7 @@ public class BTCUtils{
 				long time = Long.parseLong(map.get("time").toString());
 				SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				java.util.Date dt = new Date(time * 1000); 
-				String sDateTime = sdf.format(dt);  //得到精确到秒的表示：08/31/2006 21:08:00
+				String sDateTime = sdf.format(dt);  //寰楀埌绮剧‘鍒扮鐨勮〃绀猴細08/31/2006 21:08:00
 				btcInfo.setTime(Timestamp.valueOf(sDateTime));
 			} catch (Exception e) {
 				btcInfo.setTime(Utils.getTimestamp());
@@ -337,7 +337,7 @@ public class BTCUtils{
 	
 	
 	/***
-	 * 查出所有的币以标签
+	 * 鏌ュ嚭鎵�鏈夌殑甯佷互鏍囩
 	 * 
 		[
 		{
@@ -355,10 +355,10 @@ public class BTCUtils{
 	
 	
 	/***
-	 * 根据收款地址，提现比特币
+	 * 鏍规嵁鏀舵鍦板潃锛屾彁鐜版瘮鐗瑰竵
 	 * Returns the transaction ID <txid> if successful.
 	 * {"result":"2278857ca4ab04b41b36fe0f5ec8415d8e72c66a4688c60d8d2eefe994d3042c","error":null,"id":1}
-	 * 若获取失败，result为空，error信息为错误信息的编码
+	 * 鑻ヨ幏鍙栧け璐ワ紝result涓虹┖锛宔rror淇℃伅涓洪敊璇俊鎭殑缂栫爜
 	 * {"result":null,"error":500,"id":1}
 	 * */
 	public JSONObject sendtoaddress(String address,double account,String comment) throws Exception {
@@ -385,15 +385,15 @@ public class BTCUtils{
 		return result;
 	}
 	
-	//设置手续费
+	//璁剧疆鎵嬬画璐�
 	public void settxfee(double ffee) throws Exception {
 		JSONArray js = new JSONArray();
 		js.add(ffee);
 		main("settxfee",js.toString());
 	}
 	
-	//解锁
-	//解锁
+	//瑙ｉ攣
+	//瑙ｉ攣
 	public boolean walletpassphrase(int times) throws Exception {
 		boolean flag = false;
 		try {
@@ -409,7 +409,7 @@ public class BTCUtils{
 		return flag;
 	}
 	
-	//锁
+	//閿�
 	public void walletlock() throws Exception {
 		main("walletlock","[]");
 	}

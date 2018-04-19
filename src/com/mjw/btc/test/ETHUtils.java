@@ -1,4 +1,4 @@
-package com.ruizton.util;
+package com.mjw.btc.test;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
